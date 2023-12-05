@@ -3,3 +3,4 @@ Flask-RESTful
 flasgger
 mysql-connector-python
 Flask-SQLAlchemy
+MySQLdb
