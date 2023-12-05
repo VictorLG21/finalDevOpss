@@ -1,5 +1,5 @@
 Flask==3.0.0
 Flask-RESTful==0.3.10
 flasgger==0.9.7.1
-mysql-connector-python==8.0.23
+pymysql ==8.0.23
 Flask-SQLAlchemy==3.1.1
