@@ -1,6 +1,6 @@
 import unittest
 from flask import json
-from model.pessoa import db as test_db, Pessoa, init_app
+from model.pessoa import db as test_db, Pessoa
 from app import create_app
 
 class PessoaRoutesTest(unittest.TestCase):
