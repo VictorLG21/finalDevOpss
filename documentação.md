@@ -38,7 +38,8 @@ O pipeline é automatizado usando o GitHub Actions. Cada push para o repositóri
 
 Manual de Execução da Aplicação
 Requisitos
-Docker instalado: Docker Installation Guide
+Docker instalado
+
 Passos
 Clone o Repositório:
 
@@ -53,6 +54,7 @@ Acesse a Aplicação:
 http://localhost:5000
 
 Relatório de Desafios e Lições Aprendidas
+
 Desafios
 Configuração do MySQL: A configuração inicial do MySQL no Docker e no pipeline pode ser desafiadora devido a questões de autenticação e permissões.
 

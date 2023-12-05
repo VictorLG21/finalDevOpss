@@ -1,50 +1,61 @@
-import unittest
-from flask import Blueprint, request, jsonify, current_app
-from flask.testing import FlaskClient
-from model.pessoa import db, Pessoa, init_app
+from flask import Blueprint, request, jsonify
+from flask_restx import Api, Resource, fields
+from model.pessoa import db, Pessoa
 
-pessoa_bp = Blueprint('pessoa_bp', __name__)
+api = Api()
 
-@pessoa_bp.route('/pessoas', methods=['GET'])
-def listar_pessoas():
-    pessoas = Pessoa.query.all()
-    return jsonify([pessoa.__dict__ for pessoa in pessoas])
+bp = Blueprint('pessoa', __name__)
 
-@pessoa_bp.route('/pessoas/<int:pessoa_id>', methods=['GET'])
-def obter_pessoa(pessoa_id):
-    pessoa = Pessoa.query.get(pessoa_id)
-    if pessoa:
-        json_data = pessoa.to_dict()
+api.init_app(bp)
+ns = api.namespace('pessoas', description='Operações relacionadas a Pessoas')
 
-        return jsonify(json_data),200
-    return jsonify({'message': 'Pessoa não encontrada'}), 404
+pessoa_model = api.model('Pessoa', {
+    'id': fields.Integer(readonly=True),
+    'nome': fields.String(required=True, description='Nome da pessoa'),
+    'idade': fields.Integer(required=True, description='Idade da pessoa'),
+})
 
-@pessoa_bp.route('/pessoas', methods=['POST'])
-def criar_pessoa():
-    dados = request.get_json()
-    nova_pessoa = Pessoa(**dados)
-    json_data = nova_pessoa.to_dict()
-    db.session.add(nova_pessoa)
-    db.session.commit()
-    return jsonify(json_data), 201
+@ns.route('/')
+class PessoaResource(Resource):
+    @ns.marshal_list_with(pessoa_model)
+    def get(self):
+        pessoas = Pessoa.query.all()
+        return pessoas
 
-@pessoa_bp.route('/pessoas/<int:pessoa_id>', methods=['PUT'])
-def atualizar_pessoa(pessoa_id):
-    pessoa = Pessoa.query.get(pessoa_id)
-    if pessoa:
+    @ns.expect(pessoa_model)
+    @ns.marshal_with(pessoa_model)
+    def post(self):
         dados = request.get_json()
-        pessoa.nome = dados.get('nome', pessoa.nome)
-        pessoa.idade = dados.get('idade', pessoa.idade)
+        nova_pessoa = Pessoa(**dados)
+        db.session.add(nova_pessoa)
         db.session.commit()
-        json_data = pessoa.to_dict()
-        return jsonify(json_data)
-    return jsonify({'message': 'Pessoa não encontrada'}), 404
+        return nova_pessoa, 201
 
-@pessoa_bp.route('/pessoas/<int:pessoa_id>', methods=['DELETE'])
-def excluir_pessoa(pessoa_id):
-    pessoa = Pessoa.query.get(pessoa_id)
-    if pessoa:
-        db.session.delete(pessoa)
-        db.session.commit()
-        return jsonify({'message': 'Pessoa excluída com sucesso'}),204
-    return jsonify({'message': 'Pessoa não encontrada'}), 404
+@ns.route('/<int:pessoa_id>')
+class PessoaDetailResource(Resource):
+    @ns.marshal_with(pessoa_model)
+    def get(self, pessoa_id):
+        pessoa = Pessoa.query.get(pessoa_id)
+        if pessoa:
+            return pessoa
+        api.abort(404, f"Pessoa {pessoa_id} não encontrada")
+
+    @ns.expect(pessoa_model)
+    @ns.marshal_with(pessoa_model)
+    def put(self, pessoa_id):
+        pessoa = Pessoa.query.get(pessoa_id)
+        if pessoa:
+            dados = request.get_json()
+            pessoa.nome = dados.get('nome', pessoa.nome)
+            pessoa.idade = dados.get('idade', pessoa.idade)
+            db.session.commit()
+            return pessoa
+        api.abort(404, f"Pessoa {pessoa_id} não encontrada")
+
+    def delete(self, pessoa_id):
+        pessoa = Pessoa.query.get(pessoa_id)
+        if pessoa:
+            db.session.delete(pessoa)
+            db.session.commit()
+            return '', 204
+        api.abort(404, f"Pessoa {pessoa_id} não encontrada")
