@@ -1,3 +1,60 @@
-__pycache__
+# .gitignore
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+env/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE (por exemplo, VSCode)
+.vscode/
+.idea/
+
+# Logs e arquivos temporários
+*.log
+*.swp
+*.bak
+
+# Arquivos de configuração
+*.ini
+
+# Arquivos de compilação
+*.pyc
+*.pyo
+*.pyd
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ambientes específicos
 .env
-*.exe
+.env.local
+.env.*.local
+
+# Arquivos de dependências
+*.sqlite3
+*.sqlite
+*.db
+*.db3
+
+# Arquivos de saída da documentação
+docs/_build/
+
+# Ignore o diretório de construção do Docker
+__pycache__/
+.docker/
+
+# Configurações do banco de dados
+config.py
+
+
+# Arquivo SQL de criação de esquema
+create_schema.sql

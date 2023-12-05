@@ -1,5 +1,5 @@
-fastapi
-pydantic
-uvicorn
-psycopg2
-SQLalchemy
+Flask 
+Flask-RESTful 
+flasgger
+mysql-connector-python
+Flask-SQLAlchemy

@@ -1,25 +1,25 @@
-# Base image
-FROM python:3.9
+FROM python:3.8
 
-# Diretorio em que vamos trabalhar
 WORKDIR /app
 
-# Variaveis de ambiente
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Instale as dependências
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 
-# Instale as dependências do sistema
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends gcc libpq-dev \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+# Instale o driver MySQL
+RUN apt-get update && apt-get install -y default-libmysqlclient-dev
 
-# Instale as dependências do Python
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir --upgrade -r requirements.txt
+# Copie o código fonte
+COPY . .
 
-# Copie o código do projeto para o container
-COPY . /app/
+# Configuração do banco de dados MySQL (atualize conforme necessário)
+ENV MYSQL_HOST=seu_host_mysql
+ENV MYSQL_USER=seu_usuario_mysql
+ENV MYSQL_PASSWORD=sua_senha_mysql
+ENV MYSQL_DB=seu_banco_de_dados
 
-# Comando para rodar a aplicação
-# CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Adicione a criação do esquema e tabela
+COPY create_schema.sql create_schema.sql
+RUN mysql --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD < create_schema.sql
+
+CMD ["python", "app.py"]
