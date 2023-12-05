@@ -1,5 +1,5 @@
-Flask==3.0.0
-flask-restx==0.5.2
-flasgger==0.9.7.1
-pymysql ==1.0.2
-Flask-SQLAlchemy==3.1.1
+Flask
+flask-restx
+flasgger
+pymysql
+Flask-SQLAlchemy
