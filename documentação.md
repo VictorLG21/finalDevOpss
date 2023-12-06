@@ -37,7 +37,7 @@ Clone o Repositório:
 
 git clone https://github.com/VictorLG21/finalDevOpss
 acesse o diretorio do docker-compose 
-rode o seguinte comando docker-compose -d up
+rode o seguinte comando docker-compose up -d
 
 Relatório de Desafios e Lições Aprendidas
 
@@ -56,10 +56,8 @@ Testes Unitários: Reforçamos o conhecimento de testes unitarios num contexto d
 Documentação Clara: A documentação clara, incluindo a API do Swagger, facilita o entendimento e uso da aplicação.
 
 Reflexão sobre Práticas de DevOps
-A aplicação de práticas de DevOps no projeto demonstrou benefícios significativos, incluindo:
+Com a adoção de práticas DevOps, como automação de testes e implantação contínua, foi possível reduzir significativamente o tempo necessário para continuar o desenvolvimento da aplicação e correções de bugs. 
 
-Integração Contínua: Identificação rápida de problemas e garantia de que o código seja sempre implantável.
-
-Entrega Contínua: Implantação automática e consistente da aplicação em ambientes diferentes.
+A cultura de DevOps também me ajudou a ter uma visão mais abrangente do ciclo de vida do software, desde o desenvolvimento até a implantação e monitoramento. Ajudando a entender na prática como é o ciclo de vida de um software
 
 Em conclusão, a aplicação de práticas de DevOps não apenas facilitou o desenvolvimento e a entrega contínua, mas também contribuiu para a eficiência e confiabilidade do projeto. O aprendizado contínuo e a adaptação às lições aprendidas são cruciais para a evolução contínua da prática de DevOps.
