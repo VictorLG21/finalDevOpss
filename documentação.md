@@ -15,23 +15,14 @@ A arquitetura da solução inclui:
     Swagger e flasgger: Para documentar a API.
 
 Configuração e Execução do Pipeline
+
 Passos para Configurar o Pipeline
 Clone o Repositório:
 
 git clone https://github.com/VictorLG21/finalDevOpss
 Crie um Ambiente Virtual (Opcional, mas Recomendado):
 
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-.\venv\Scripts\activate   # Windows
-Instale as Dependências:
-
-pip install -r requirements.txt
-Execute a Aplicação Localmente:
-
-python app.py
-Acesse a Documentação Swagger:
-http://localhost:5000/apidocs
+baixe as dependencias necessarias, sendo elas o docker/docker-compose e execute-o
 
 Execução do Pipeline
 O pipeline é automatizado usando o GitHub Actions. Cada push para o repositório aciona o pipeline, que executa testes, constrói e empurra a imagem Docker, e implanta a aplicação.
@@ -39,19 +30,14 @@ O pipeline é automatizado usando o GitHub Actions. Cada push para o repositóri
 Manual de Execução da Aplicação
 Requisitos
 Docker instalado
+Docker-Compose instalado
 
 Passos
 Clone o Repositório:
 
 git clone https://github.com/VictorLG21/finalDevOpss
-Construa a Imagem Docker:
-
-docker build -t finalDevOps .
-Execute o Contêiner Docker:
-
-docker run -p 5000:5000 finalDevOps
-Acesse a Aplicação:
-http://localhost:5000
+acesse o diretorio do docker-compose 
+rode o seguinte comando docker-compose -d up
 
 Relatório de Desafios e Lições Aprendidas
 
@@ -60,9 +46,13 @@ Configuração do MySQL: A configuração inicial do MySQL no Docker e no pipeli
 
 Integração do Swagger: Integrar o Swagger pode exigir ajustes específicos, especialmente ao documentar endpoints mais complexos.
 
+Segurança: implementação com segurança de todas as informações para que não fiquem publicas.
+
+Configuração do yaml.
+
 Lições Aprendidas
 Automação do Pipeline: A automação do pipeline com o GitHub Actions simplifica o processo de CI/CD, proporcionando consistência e confiabilidade.
-
+Testes Unitários: Reforçamos o conhecimento de testes unitarios num contexto de ci-cd.
 Documentação Clara: A documentação clara, incluindo a API do Swagger, facilita o entendimento e uso da aplicação.
 
 Reflexão sobre Práticas de DevOps
@@ -71,9 +61,5 @@ A aplicação de práticas de DevOps no projeto demonstrou benefícios significa
 Integração Contínua: Identificação rápida de problemas e garantia de que o código seja sempre implantável.
 
 Entrega Contínua: Implantação automática e consistente da aplicação em ambientes diferentes.
-
-Colaboração: Melhoria na colaboração entre desenvolvedores, operações e outros stakeholders.
-
-Documentação Automática: A integração do Swagger permite documentação automática da API, melhorando a compreensão e adoção.
 
 Em conclusão, a aplicação de práticas de DevOps não apenas facilitou o desenvolvimento e a entrega contínua, mas também contribuiu para a eficiência e confiabilidade do projeto. O aprendizado contínuo e a adaptação às lições aprendidas são cruciais para a evolução contínua da prática de DevOps.
