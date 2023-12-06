@@ -24,7 +24,7 @@ services:
       - "3306"
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=mydatabase
+      - MYSQL_DATABASE=pessoa
       - MYSQL_USER=root
       - MYSQL_PASSWORD=root
     networks:
