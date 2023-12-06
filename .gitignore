@@ -53,8 +53,6 @@ __pycache__/
 .docker/
 
 # Configurações do banco de dados
-config.py
-
 
 # Arquivo SQL de criação de esquema
 create_schema.sql
