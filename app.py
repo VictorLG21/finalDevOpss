@@ -3,11 +3,20 @@ from flask_restx  import Api,swagger
 from model.pessoa import init_app, db
 from routes.pessoa import bp
 
-def create_app():
+def create_app(test_config=None):
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost:3306/pessoa'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['TESTING'] = True
+
+    # Set default configuration
+    app.config.from_mapping(
+        SECRET_KEY='dev',
+        SQLALCHEMY_DATABASE_URI='mysql+pymysql://root:root@localhost:3306/pessoa',
+        SQLALCHEMY_TRACK_MODIFICATIONS=False,
+        # ... other configurations
+    )
+
+    if test_config is not None:
+        app.config.from_mapping(test_config)
+
     app.register_blueprint(bp)
 
 

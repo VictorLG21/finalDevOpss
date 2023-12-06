@@ -1,3 +1,5 @@
+import os
+import tempfile
 import unittest
 from flask import json
 from model.pessoa import db as test_db, Pessoa
@@ -6,13 +8,17 @@ from app import create_app
 class PessoaRoutesTest(unittest.TestCase):
 
     def setUp(self):
-        self.app = create_app()
+        self.db_fd, self.db_path = tempfile.mkstemp()
+        self.app = create_app(test_config={'SQLALCHEMY_DATABASE_URI': f"sqlite:///{self.db_path}"})
         self.app.config['TESTING'] = True
         self.client = self.app.test_client()
 
-    def tearDown(self):
         with self.app.app_context():
-            test_db.session.remove()
+            test_db.create_all()
+
+    def tearDown(self):
+        os.close(self.db_fd)
+        os.unlink(self.db_path)
 
     def test_criar_pessoa(self):
         payload = {'nome': 'João', 'idade': 25}
@@ -47,6 +53,6 @@ class PessoaRoutesTest(unittest.TestCase):
             updated_pessoa = Pessoa.query.get(pessoa.id)
             self.assertEqual(updated_pessoa.nome, 'Carlos Atualizado')
             self.assertEqual(updated_pessoa.idade, 41)
-    
+
 if __name__ == '__main__':
     unittest.main()
