@@ -27,9 +27,7 @@ jobs:
       run: |
         python -m unittest test_pessoa_routes.py
 
-name: Deploy To Azure
-jobs:
-  deploy:
+  deploy-to-azure:
     runs-on: ubuntu-latest
     
     steps:
