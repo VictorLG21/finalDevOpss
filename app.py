@@ -6,12 +6,10 @@ from routes.pessoa import bp
 def create_app(test_config=None):
     app = Flask(__name__)
 
-    # Set default configuration
     app.config.from_mapping(
         SECRET_KEY='dev',
         SQLALCHEMY_DATABASE_URI='mysql+pymysql://root:root@localhost:3306/pessoa',
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        # ... other configurations
     )
 
     if test_config is not None:
@@ -26,8 +24,7 @@ def create_app(test_config=None):
     with app.app_context():
         db.create_all()
     return app
- 
-app = create_app()
 
 if __name__ == '__main__':
+    app = create_app()
     app.run(debug=True)
