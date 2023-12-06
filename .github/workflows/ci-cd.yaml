@@ -35,7 +35,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Git clone
-      run: git clone https://github.com/VictorLG21/finalDevOpss /home/rafael.guimaraes/praticadevops04
+      run: git clone https://github.com/VictorLG21/finalDevOpss /home/rafael.guimaraes/praticadevops04/
 
     - name: Deploy to Azure VM
       uses: appleboy/ssh-action@master
