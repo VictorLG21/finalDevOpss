@@ -20,6 +20,12 @@ ENV MYSQL_USER=root
 ENV MYSQL_PASSWORD=root
 ENV MYSQL_DB=pessoa
 
+# Install MySQL client
+RUN apt-get update && apt-get install -y default-mysql-client
+
+# Make port 80 available to the world outside this container
+EXPOSE 80
+
 # Adicione a criação do esquema e tabela
 COPY ./sql/create_schema.sql create_schema.sql
 RUN mysql --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD < create_schema.sql
