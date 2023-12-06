@@ -21,7 +21,7 @@ ENV MYSQL_PASSWORD=root
 ENV MYSQL_DB=pessoa
 
 # Adicione a criação do esquema e tabela
-COPY create_schema.sql create_schema.sql
+COPY ./sql/create_schema.sql create_schema.sql
 RUN mysql --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD < create_schema.sql
 
 EXPOSE 5000 
