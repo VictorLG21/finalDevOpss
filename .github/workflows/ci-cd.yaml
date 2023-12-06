@@ -34,6 +34,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Git clone
+      run: git clone https://github.com/VictorLG21/finalDevOpss /home/rafael.guimaraes/praticadevops04
+
     - name: Deploy to Azure VM
       uses: appleboy/ssh-action@master
       with:
@@ -41,7 +44,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         script: |
-          cd /home/rafael.guimaraes/praticadevops03
+          cd /home/rafael.guimaraes/praticadevops04
           sudo git pull
           sudo docker-compose down
           sudo docker-compose up -d
