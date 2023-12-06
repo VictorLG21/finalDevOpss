@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  web:
+    build:
+      context: .
+    command: bash -c 'while !</dev/tcp/db/3306; do sleep 1; done; uvicorn main:app --host 0.0.0.0'
+    volumes:
+      - .:/app
+    ports:
+      - "8008:8000"
+    environment:
+      - DATABASE_URL=mysql://root:root@db:3306/pessoa  
+    depends_on:
+      - db
+    networks:
+      - mynetwork  
+
+  db:
+    image: mysql:latest
+    volumes:
+      - mysql_data:/var/lib/mysql
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=mydatabase
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    networks:
+      - mynetwork  
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  mysql_data:
