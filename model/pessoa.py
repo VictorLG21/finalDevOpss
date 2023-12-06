@@ -22,6 +22,4 @@ def init_app(app):
     db.init_app(app)
 
     with app.app_context():
-        # Verifica se a tabela 'pessoa' existe
-        if not inspect(db.engine).has_table('pessoa'):
-            db.create_all()
+        db.create_all()
