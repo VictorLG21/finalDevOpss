@@ -1,0 +1,12 @@
+
+USE sys;
+
+CREATE SCHEMA IF NOT EXISTS pessoa;
+
+USE pessoa;
+
+CREATE TABLE IF NOT EXISTS pessoa (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome TEXT NOT NULL,
+    idade INT
+);

@@ -51,8 +51,3 @@ docs/_build/
 # Ignore o diretório de construção do Docker
 __pycache__/
 .docker/
-
-# Configurações do banco de dados
-
-# Arquivo SQL de criação de esquema
-create_schema.sql
